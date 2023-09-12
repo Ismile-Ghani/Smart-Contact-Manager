@@ -312,6 +312,7 @@ public class UserController {
 	
 	@GetMapping("/settings")
 	public String openSetting() {
+		System.out.println("In Setting");
 		return "/users/setting";
 	}
 	
