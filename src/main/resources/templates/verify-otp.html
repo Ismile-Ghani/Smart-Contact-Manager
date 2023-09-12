@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body >
+	<section>
+
+		<div id="login">
+			<div class="container">
+				<div id="login-row"
+					class="row justify-content-center align-items-center">
+					<div id="login-column" class="col-md-6">
+						<div id="login-box" class="col-md-12">
+							<form id="login-form" class="form">
+								<div class="spinner-grow" role="status" id="spinner">
+  									<span class="sr-only">Loading...</span>
+								</div>
+								<h3 class="text-center text-info">Verify OTP</h3>
+								<div id="msg_box" th:if="${session.message}"
+					th:classappend="${'alert-'+session.message.type}"
+					class="alert text-center" role="alert">
+					<h6 th:text="${session.message.content}"></h6>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+								
+				</div>
+				
+								<span id="otp_message"></span>
+								<div class="form-group">
+									<label for="username" class="text-info">Enter OTP:</label><br>
+									<input type="text" name="verifyOTP" id="verifyOTP"
+										class="form-control">
+								</div>
+								
+								<div class="form-group text-center">
+									<button type="button"  name="btn" id="btn" class="btn btn-info btn-md" value="OK">OK</button>
+								</div>
+								
+								
+							</form>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function myURL() {
+         document.location.href = '/signin?chk=Your password is sent to your registered email ID';
+         
+      }
+      $(document).ready(function() {
+		 // var myElement = document.getElementById("spinner");
+		  //myElement.style.visibility = 'hidden'
+		  $('#spinner').hide();
+	  });
+      
+      			
+				 
+				$('#btn').click((e)=>{
+					if($('#verifyOTP').val() == ''){
+						alert("Pls enter OTP to verify");
+						e.preventDefault();
+						return;
+					}
+					
+					alert('hi')
+					$.ajax({
+						url:'/doVerifyOTP',
+						data:JSON.stringify({OTP:$('#verifyOTP').val()}),
+						contentType:'application/json',
+						type:'POST',
+						dataType:'JSON',
+						success:function(response){
+							
+							console.log(response)
+							//alert('success')
+							//localStorage.setItem("chkEmail","Your password is sent to your registered email ID")
+							var myElement = document.getElementById("spinner");
+
+     						$('#spinner').show();
+     						setTimeout(myURL, 5000);
+							window.location.href = '/signin?chk=Your password is sent to your registered email ID'
+							//$("#chkEmail").html("Your password is sent to your registered email ID").css("color", "green")
+							//
+         					//var result = document.getElementById("login-form");
+         					//result.innerHTML = "<b> The page will redirect after delay of 5 seconds";
+							
+							
+						},
+						error: function(error) {
+							
+							console.log(error)
+							if(error.status == 500)
+								$('#msg_box').html('Pls Enter correct OTP. This will expire after 2 minutes.').css("color","red")
+							else
+								window.location.href = '/forgotPassword?chk=OTP has expired.Please try after clicking resend button&btnValue=Resend OTP'
+							return;
+							//$('#otp_message').html(error.responseText).css("color","red")
+							
+						}
+					})
+					
+				})
+				
+				
+				
+					
+			</script>
+	</section>
+
+
+
+</body>
+</html>

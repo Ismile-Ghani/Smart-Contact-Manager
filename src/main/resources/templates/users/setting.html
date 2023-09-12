@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="users/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<div class="card m-3">
+
+			<div class="card-body">
+
+				<h1 class="text-center">Change Password</h1>
+				
+				
+
+				<div class="container-fluid mt-1">
+
+					<div class="row">
+
+						<div class="col-md-10 offset-md-1">
+							<div th:if="${session.message}"
+								th:classappend="${'alert-'+session.message.type}"
+								class="alert text-center" role="alert">
+								<h6 th:text="${session.message.content}"></h6>
+							</div>
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+							<form th:action="@{/user/process-password}"
+								 
+								method="post" class="mt-2">
+
+								<div class="input-group">
+
+									<div class="input-group-prepend">
+
+
+										<div class="input-group-text">
+											<i class="fa fa-plus"></i>
+										</div>
+
+									</div>
+									<input type="password" id="oldPassword" name="oldPassword"
+										class="form-control" placeholder="Enter Old Password" />
+									
+								</div>
+
+								<div class="input-group mt-3">
+
+									<div class="input-group-prepend">
+
+
+										<div class="input-group-text">
+											<i class="fa fa-plus"></i>
+										</div>
+
+									</div>
+									<input type="password" id="newPassword" name="newPassword"
+										class="form-control" placeholder="Enter New Password" />
+
+								</div>
+
+								
+								<div class="input-group mt-3">
+
+									<div class="input-group-prepend">
+
+
+										<div class="input-group-text">
+											<i class="fa fa-plus"></i>
+										</div>
+
+									</div>
+									<input type="password" id="confirmPassword" name="confirmPassword"
+										class="form-control" placeholder="Confirm New Password" />
+
+								</div>
+
+								
+
+								
+
+								<div class="container text-center mt-3">
+
+									<button class="btn btn-outline-primary" id="btn">Change Password</button>
+									<button type="reset" class="btn btn-outline-secondary">Reset</button>
+								</div>
+
+							</form>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+		
+			<script>
+				$(document).ready(()=>{
+					$('.item').removeClass('active');
+					$('#setting-link').addClass('active');
+				})
+				
+			</script>
+			<script>
+				$('#btn').click((e)=>{
+					if($('#oldPassword').val() == ''){
+						alert("Pls enter old password");
+						e.preventDefault();
+						return;
+					}
+					if($('#newPassword').val() == ''){
+						alert("Pls enter new password");
+						e.preventDefault();
+						return;
+					}
+					if($('#confirmPassword').val() == ''){
+						alert("Pls enter password to confirm");
+						e.preventDefault();
+						return;
+					}
+				})
+			</script>
+	</section>
+
+
+
+</body>
+</html>

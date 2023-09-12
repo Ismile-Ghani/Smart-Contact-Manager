@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="users/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+	<section>
+
+		<div>
+			<h1 class="font-weight-bold">This is about page.</h1>
+			
+		</div>
+		<script>
+				$(document).ready(()=>{
+					$('.item').removeClass('active');
+					$('#home-link').addClass('active');
+				})
+				
+			</script>
+	</section>
+
+
+
+</body>
+</html>
