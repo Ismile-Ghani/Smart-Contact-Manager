@@ -306,6 +306,7 @@ public class UserController {
 		System.out.println(query);
 		User user = this.userRepo.getUserByUserName(principal.getName());
 		List<Contact> listContact = this.contactRepo.findByNameContainingAndUser(query, user);
+		System.out.println(listContact);
 		return ResponseEntity.ok(listContact);
 		
 	}
