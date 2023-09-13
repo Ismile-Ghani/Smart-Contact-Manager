@@ -342,6 +342,7 @@ public class UserController {
 		else
 		{
 			session.setAttribute("message", new Message("You entered wrong old password","danger"));
+			System.out.println(session.getAttribute("message"));
 			return "/users/setting";
 		}
 	}
