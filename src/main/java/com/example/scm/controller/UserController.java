@@ -346,6 +346,8 @@ public class UserController {
 			System.out.print(session.getAttribute("message"));
 
 			System.out.println(session.getAttribute("In dev branch"));
+			System.out.println(session.getAttribute("In test2 branch"));
+			
 
 			return "/users/setting";
 		}
