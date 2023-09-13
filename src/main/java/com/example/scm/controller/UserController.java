@@ -306,6 +306,7 @@ public class UserController {
 		System.out.println(query);
 		User user = this.userRepo.getUserByUserName(principal.getName());
 		List<Contact> listContact = this.contactRepo.findByNameContainingAndUser(query, user);
+		System.out.println(listContact);
 		return ResponseEntity.ok(listContact);
 		
 	}
@@ -341,7 +342,11 @@ public class UserController {
 		else
 		{
 			session.setAttribute("message", new Message("You entered wrong old password","danger"));
+<<<<<<< HEAD
 			System.out.print(session.getAttribute("message"));
+=======
+			//System.out.println(session.getAttribute("message"));
+>>>>>>> test1
 			return "/users/setting";
 		}
 	}
